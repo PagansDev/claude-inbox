@@ -15,8 +15,8 @@ Lay the architectural and tooling foundation of claude-inbox and prove, in a rea
 
 | # | Task | Objective | Depends on | Spec | Related ADRs | Status |
 |---|------|-----------|------------|------|--------------|--------|
-| 01 | Task 01 — Repository baseline | MIT LICENSE, README, .gitignore and the `/docs` skeleton | — | — | — | 🔄 |
-| 02 | Task 02 — Commit tooling | package.json, Husky, Biome, lint-staged and a Conventional Commits check that reject non-conforming commits | 01 | — | — | 🔲 |
+| 01 | Task 01 — Repository baseline | MIT LICENSE, README, .gitignore and the `/docs` skeleton | — | — | — | ✅ |
+| 02 | Task 02 — Commit tooling | package.json, Husky, Biome, lint-staged and a Conventional Commits check that reject non-conforming commits | 01 | — | — | ✅ |
 | 03 | Task 03 — Hook viability spike | Minimal local server and `PreToolUse` hook on `AskUserQuestion` that answers automatically; manual test procedure and written report across six cases | 02 | — | — | 🔲 |
 | 04 | Task 04 — Tauri scaffold | Tauri v2 app (Rust backend, TypeScript frontend) building on Linux, with rustfmt and clippy wired into the git hooks | 02 | — | — | 🔲 |
 | 05 | Task 05 — i18n skeleton | pt-BR, en and es catalogues, locale detection and fallback, with the scaffold window rendering only catalogue text | 04 | — | — | 🔲 |

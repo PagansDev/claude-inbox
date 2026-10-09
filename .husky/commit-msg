@@ -1,0 +1,9 @@
+npx --no -- commitlint --edit "$1"
+
+branch=$(git symbolic-ref --short -q HEAD)
+subject=$(head -n 1 "$1")
+
+if [ "$branch" = "main" ] && ! printf '%s' "$subject" | grep -qE '^(chore(\([^)]+\))?!?: |Merge )'; then
+  echo "Only chore commits are allowed on main. Create a branch for this change."
+  exit 1
+fi
