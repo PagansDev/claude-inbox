@@ -1,6 +1,18 @@
 # Sprint: 1 Inbox Foundation
 
-Issue: [#1](https://github.com/PagansDev/claude-inbox/issues/1) · Board: @PagansDev's Kamban
+Issue: [#1](https://github.com/PagansDev/claude-inbox/issues/1) · Board: @PagansDev's Kamban (status: In progress, assignee: PagansDev)
+
+<details>
+<summary>Board ids (Projects v2)</summary>
+
+| What | Id |
+|------|----|
+| Project `@PagansDev's Kamban` (number 1) | `PVT_kwHOAwwIXs4BkoEm` |
+| Status field | `PVTSSF_lAHOAwwIXs4BkoEmzhjYA0M` |
+| Backlog / Ready / In progress / In review / Test / Done | `f75ad846` / `61e4505c` / `47fc9ee4` / `df73e18b` / `ba1e5bfd` / `98236657` |
+| Issue #1 item | `PVTI_lAHOAwwIXs4BkoEmzg_y7Fk` |
+
+</details>
 
 ## Overview
 Lay the architectural and tooling foundation of claude-inbox and prove, in a real Claude Code session, that a `PreToolUse` HTTP hook can answer an `AskUserQuestion` call through `updatedInput.answers` while keeping the native-dialog fallback when the app is not running.
@@ -11,15 +23,15 @@ Lay the architectural and tooling foundation of claude-inbox and prove, in a rea
 
 ## Sprint Roadmap
 
-> Draft written in Step 0.6. It is closed and approved by the human in Phase 4: one row per task. A task file and its spec are only written when the task becomes active. Until then the Task and Spec columns have no link.
+> Approved by the human in Phase 4 on 2026-10-10: one row per task. A task file and its spec are only written when the task becomes active. Until then the Task and Spec columns have no link.
 
 | # | Task | Objective | Depends on | Spec | Related ADRs | Status |
 |---|------|-----------|------------|------|--------------|--------|
 | 01 | Task 01 — Repository baseline | MIT LICENSE, README, .gitignore and the `/docs` skeleton | — | — | — | ✅ |
 | 02 | Task 02 — Commit tooling | package.json, Husky, Biome, lint-staged and a Conventional Commits check that reject non-conforming commits | 01 | — | — | ✅ |
-| 03 | Task 03 — Hook viability spike | Minimal local server and `PreToolUse` hook on `AskUserQuestion` that answers automatically; manual test procedure and written report across six cases | 02 | — | — | 🔲 |
-| 04 | Task 04 — Tauri scaffold | Tauri v2 app (Rust backend, TypeScript frontend) building on Linux, with rustfmt and clippy wired into the git hooks | 02 | — | — | 🔲 |
-| 05 | Task 05 — i18n skeleton | pt-BR, en and es catalogues, locale detection and fallback, with the scaffold window rendering only catalogue text | 04 | — | — | 🔲 |
+| 03 | Task 03 — Hook viability spike | Minimal Node 24 TypeScript server and `PreToolUse` hook on `AskUserQuestion` that answers automatically; manual procedure, report across six cases, captured payloads as contract fixtures | 02 | — | [ADR 02](ADRs/adr-02.md), [ADR 05](ADRs/adr-05.md) | 🔲 |
+| 04 | Task 04 — Tauri scaffold | Tauri v2 app (Rust backend, React + Vite + Tailwind + lucide-react frontend) building on Linux, with the ADR 04 folder layout; rustfmt, clippy and a Rust no-comments check in the git hooks | 02 | — | [ADR 01](ADRs/adr-01.md), [ADR 04](ADRs/adr-04.md), [ADR 05](ADRs/adr-05.md) | 🔲 |
+| 05 | Task 05 — i18n skeleton | Typed pt-BR, en and es catalogues (missing key = type error), `navigator.language` detection with `en` fallback, scaffold window rendering only catalogue text | 04 | — | [ADR 04](ADRs/adr-04.md) | 🔲 |
 
 Legend: 🔲 not started · 🔄 in progress · ✅ done · 🚫 blocked (reason in Risks and Open Decisions) · 🗑️ dropped
 
@@ -40,7 +52,23 @@ Legend: 🔲 not started · 🔄 in progress · ✅ done · 🚫 blocked (reason
 
 ## ADRs
 
-> Created in Step 0.7.
+| ADR | Decision | Status |
+|-----|----------|--------|
+| [ADR 01](ADRs/adr-01.md) | Stack and process architecture: one Tauri v2 process, axum server inside, React + Tailwind + lucide-react frontend | Accepted |
+| [ADR 02](ADRs/adr-02.md) | Hook integration contract: events, endpoints, responses, timeouts, fail-open behaviour, installer identity | Accepted |
+| [ADR 03](ADRs/adr-03.md) | Local server security: loopback, 256-bit token header, JSON-only, caps, text-only rendering | Accepted |
+| [ADR 04](ADRs/adr-04.md) | Conventions and structure: language, no comments, typed i18n catalogues, commits, folders, naming | Accepted |
+| [ADR 05](ADRs/adr-05.md) | Testing strategy and definition of done | Accepted |
+
+### Sources consulted
+
+| Source | What it changed |
+|--------|-----------------|
+| Lexomni — maintainer guidelines | React + Tailwind + `lucide-react` for the frontend; YAGNI (no i18n library); controller/service split mapped to `server/` and `queue/` |
+| Lexomni — OWASP ASVS 5.0 | 11.5.1 (CSPRNG token, ≥ 128 bits), 3.2.2 (render hook text as text), 2.4.1 (caps), CORS requirements → JSON-only requests with no CORS headers |
+| Context7 — Tauri v2 and plugins | axum spawned from `setup` with `tauri::async_runtime::spawn`, shared state via `manage`, events via `emit`; single-instance and notification plugins |
+| Context7 — axum | Router with state, `TcpListener` bound to loopback, `oneshot` testing of the router |
+| Claude Code hooks reference | The whole contract in ADR 02 |
 
 ---
 
@@ -49,8 +77,8 @@ Legend: 🔲 not started · 🔄 in progress · ✅ done · 🚫 blocked (reason
 > Update before moving between phases. A phase only starts when the previous one is marked complete here.
 
 - [x] Requirement deepened and PRD approved by the human
-- [ ] Minimum ADRs created
-- [ ] Roadmap approved by the human and recorded in the issue (Phase 4)
+- [x] Minimum ADRs created and approved
+- [x] Roadmap approved by the human and recorded in the issue (Phase 4) — 2026-10-10
 - [ ] Every roadmap row ✅ or 🗑️ (each task: activation → spec → RED → GREEN → refactor → Record)
 - [ ] Tests, lint, typecheck and build passing on the final tree
 - [ ] Critical code review done (REVIEW.md)
@@ -65,6 +93,4 @@ Legend: 🔲 not started · 🔄 in progress · ✅ done · 🚫 blocked (reason
 
 | Item | Pending decision | Owner |
 |------|------------------|-------|
-| MCP servers | Lexomni and Context7 were not loaded when the sprint started; the session must be restarted with both before Step 0.7 | PagansDev |
-| Branching | Tasks 01 and 02 are `chore` and can land on `main`. Tasks 03–05 need a branch (e.g. `feat-inbox-foundation`) | PagansDev |
-| Spike language | Proposed: TypeScript on Node 24 (native type stripping, no build step), so Biome covers it. Decided in the ADRs | PagansDev |
+| Branch | Tasks 03–05 land on `feat-inbox-foundation` (approved 2026-10-10) | — |
