@@ -1,6 +1,6 @@
 # ADR 02 — Hook integration contract
 
-**Status:** Accepted — 2026-10-10. The parts marked *to verify* are confirmed or changed by the Task 03 spike.
+**Status:** Accepted — 2026-10-10. Verified by the Task 03 spike on 2026-10-11 ([spike report](../spike-report.md)).
 
 ## Context
 The official reference (https://code.claude.com/docs/en/hooks, read 2026-10-08, Claude Code 2.1.292) states:
@@ -33,15 +33,21 @@ Which events the inbox subscribes to, what it answers for each, and how it fails
   - When the app is closed, the connection is refused, so the native dialog appears.
   - An invalid request gets a non-2xx response, so the native dialog appears.
   - The server never returns a 2xx with a non-JSON body.
-- **Free text ("Other"):** sent as the answer string for that question. *To verify.*
+- **Answer values (verified):**
+  - single choice: the option label;
+  - multi-select: the labels joined by `", "`;
+  - free text ("Other"): any other string.
+
+  Claude Code tells the cases apart by itself.
 - **Stale items:**
-  - When Claude Code cancels the request (timeout, or the native dialog answered first), the connection closes, axum drops the handler future, and the item is removed from the queue through a drop guard. *To verify.*
+  - When Claude Code cancels the request (timeout, or Esc in the session), the connection closes, axum drops the handler future, and the item is removed from the queue through a drop guard. Verified for the timeout case: the server saw the close before replying.
   - The user never answers a dead item.
 - **Installer:**
   - It adds the entries to `~/.claude/settings.json`, merging them with existing hooks.
   - It identifies its own entries by the URL prefix `http://127.0.0.1:<port>/hooks/`.
   - Uninstall removes only those entries. Re-installing is idempotent.
-- **Contract fixtures:** real payloads captured by the spike, with personal paths removed, become test fixtures. The tested Claude Code version is recorded next to them.
+- **Contract fixtures:** real payloads captured by the spike, with personal paths removed, live in `fixtures/hooks/` (Claude Code 2.1.292 and 2.1.296, terminal and VS Code).
+- **Decline:** the native dialog lets the user decline. How a hook expresses a decline is not yet verified; the MVP checks it before offering the action.
 
 ## Consequences
 - The fallback the PRD requires holds by construction: every failure path is a documented non-blocking error.
@@ -51,4 +57,4 @@ Which events the inbox subscribes to, what it answers for each, and how it fails
 ## Alternatives considered
 - **`command` hooks calling a CLI that talks to the app:** an extra process per call, and the CLI must reproduce the fail-open behaviour itself. HTTP hooks give that behaviour for free.
 - **Holding `Notification` and `Stop` until acknowledged:** they have no decision to return, so holding them would only delay the session.
-- **`permissionDecision: "defer"`:** kept as the fallback if the spike shows that `answers` does not skip the dialog.
+- **`permissionDecision: "defer"`:** was kept as the fallback in case `answers` did not skip the dialog. The spike showed that it does, so `defer` is not used.

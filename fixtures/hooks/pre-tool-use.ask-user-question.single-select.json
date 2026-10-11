@@ -1,0 +1,52 @@
+{
+  "session_id": "cad729c8-33db-4b77-b24a-839425019b31",
+  "transcript_path": "/home/user/.claude/projects/-home-user-dev-claude-inbox-spike-test/cad729c8-33db-4b77-b24a-839425019b31.jsonl",
+  "cwd": "/home/user/dev/claude-inbox-spike-test",
+  "scratchpad_dir": "/tmp/claude-1000/-home-user-dev-claude-inbox-spike-test/cad729c8-33db-4b77-b24a-839425019b31/scratchpad",
+  "prompt_id": "f8276ea0-1279-4329-b0c2-4846bdf01835",
+  "permission_mode": "auto",
+  "effort": {
+    "level": "high"
+  },
+  "hook_event_name": "PreToolUse",
+  "tool_name": "AskUserQuestion",
+  "tool_input": {
+    "questions": [
+      {
+        "question": "Which color?",
+        "header": "Color",
+        "options": [
+          {
+            "label": "Red",
+            "description": "Red"
+          },
+          {
+            "label": "Green",
+            "description": "Green"
+          },
+          {
+            "label": "Blue",
+            "description": "Blue"
+          }
+        ],
+        "multiSelect": false
+      },
+      {
+        "question": "Which size?",
+        "header": "Size",
+        "options": [
+          {
+            "label": "Small",
+            "description": "Small"
+          },
+          {
+            "label": "Large",
+            "description": "Large"
+          }
+        ],
+        "multiSelect": false
+      }
+    ]
+  },
+  "tool_use_id": "toolu_01EpPBVNkWE9fNp7i9ZaGgLE"
+}

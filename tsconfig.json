@@ -11,5 +11,5 @@
     "skipLibCheck": true,
     "types": ["node"]
   },
-  "include": ["scripts", "commitlint.config.js"]
+  "include": ["scripts", "spike", "commitlint.config.js"]
 }

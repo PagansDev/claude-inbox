@@ -6,3 +6,5 @@ Code in this repository has no comments. Anything that would have been a comment
 
 - Architecture decisions: [`.sprints/1 Inbox Foundation/ADRs/`](../.sprints/1%20Inbox%20Foundation/ADRs/)
 - Tooling, git hooks and the no-comments check: [`tooling.md`](tooling.md)
+- Hook viability spike report: [`.sprints/1 Inbox Foundation/spike-report.md`](../.sprints/1%20Inbox%20Foundation/spike-report.md)
+- Real Claude Code hook payloads: [`fixtures/hooks/`](../fixtures/hooks/)
