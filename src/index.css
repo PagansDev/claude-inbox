@@ -1,0 +1,22 @@
+@import "tailwindcss";
+
+@theme {
+  --color-canvas: #0f1416;
+  --color-surface: #172024;
+  --color-ink: #e6ecee;
+  --color-muted: #8a9a9f;
+  --color-accent: #d97757;
+  --font-sans: ui-sans-serif, system-ui, sans-serif;
+  --font-mono: ui-monospace, "JetBrains Mono", "Cascadia Code", monospace;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  background-color: var(--color-canvas);
+  color: var(--color-ink);
+}

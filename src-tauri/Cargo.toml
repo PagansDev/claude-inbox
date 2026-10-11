@@ -1,0 +1,19 @@
+[package]
+name = "claude-inbox"
+version = "0.1.0"
+description = "One inbox for every Claude Code session"
+authors = ["PagansDev"]
+license = "MIT"
+repository = "https://github.com/PagansDev/claude-inbox"
+edition = "2024"
+rust-version = "1.90"
+
+[lib]
+name = "claude_inbox_lib"
+crate-type = ["staticlib", "cdylib", "rlib"]
+
+[build-dependencies]
+tauri-build = { version = "2.7.2", features = [] }
+
+[dependencies]
+tauri = { version = "2.12.3", features = [] }

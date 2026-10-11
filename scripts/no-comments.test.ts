@@ -11,6 +11,10 @@ describe("isChecked", () => {
     assert.equal(isChecked("tools/run.mjs", root), true);
   });
 
+  it("checks Rust files", () => {
+    assert.equal(isChecked("src-tauri/src/lib.rs", root), true);
+  });
+
   it("skips files that are not scripts", () => {
     assert.equal(isChecked("README.md", root), false);
     assert.equal(isChecked("biome.json", root), false);
@@ -69,5 +73,51 @@ describe("findComments", () => {
   it("parses JSX and TSX files", () => {
     const source = "export const A = () => <div>{/* hidden */}</div>\n";
     assert.deepEqual(findComments("a.tsx", source), [{ line: 1, text: "/* hidden */" }]);
+  });
+});
+
+describe("findComments in Rust", () => {
+  it("returns nothing for a file without comments", () => {
+    assert.deepEqual(findComments("a.rs", "fn main() {}\n"), []);
+  });
+
+  it("reports line and block comments", () => {
+    const source = "fn main() {\n    let a = 1; // note\n    /* block */\n}\n";
+    assert.deepEqual(findComments("a.rs", source), [
+      { line: 2, text: "// note" },
+      { line: 3, text: "/* block */" },
+    ]);
+  });
+
+  it("reports outer and inner doc comments", () => {
+    const source = "//! crate doc\n/// item doc\n/** block doc */\npub fn run() {}\n";
+    assert.deepEqual(findComments("a.rs", source), [
+      { line: 1, text: "//! crate doc" },
+      { line: 2, text: "/// item doc" },
+      { line: 3, text: "/** block doc */" },
+    ]);
+  });
+
+  it("ignores comment markers inside strings, raw strings and chars", () => {
+    const source = [
+      "fn main() {",
+      '    let url = "https://example.com";',
+      '    let raw = r#"// not a comment"#;',
+      "    let slash = '/';",
+      "    let _ = (url, raw, slash);",
+      "}",
+      "",
+    ].join("\n");
+    assert.deepEqual(findComments("a.rs", source), []);
+  });
+
+  it("ignores attributes", () => {
+    const source = [
+      '#![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]',
+      "#[tauri::command]",
+      "fn greet() {}",
+      "",
+    ].join("\n");
+    assert.deepEqual(findComments("a.rs", source), []);
   });
 });
