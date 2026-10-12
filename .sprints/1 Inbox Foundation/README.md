@@ -31,7 +31,7 @@ Lay the architectural and tooling foundation of claude-inbox and prove, in a rea
 | 02 | Task 02 — Commit tooling | package.json, Husky, Biome, lint-staged and a Conventional Commits check that reject non-conforming commits | 01 | — | — | ✅ |
 | 03 | [Task 03 — Hook viability spike](tasks/task-03.md) | Minimal Node 24 TypeScript server and `PreToolUse` hook on `AskUserQuestion` that answers automatically; manual procedure, report across six cases, captured payloads as contract fixtures | 02 | [Spec 03](specs/spec-03.md) | [ADR 02](ADRs/adr-02.md), [ADR 05](ADRs/adr-05.md) | ✅ |
 | 04 | [Task 04 — Tauri scaffold](tasks/task-04.md) | Tauri v2 app (Rust backend, React + Vite + Tailwind + lucide-react frontend) building on Linux, with the ADR 04 folder layout; rustfmt, clippy and a Rust no-comments check in the git hooks | 02 | [Spec 04](specs/spec-04.md) | [ADR 01](ADRs/adr-01.md), [ADR 04](ADRs/adr-04.md), [ADR 05](ADRs/adr-05.md) | ✅ |
-| 05 | Task 05 — i18n skeleton | Typed pt-BR, en and es catalogues (missing key = type error), `navigator.language` detection with `en` fallback, scaffold window rendering only catalogue text | 04 | — | [ADR 04](ADRs/adr-04.md) | 🔲 |
+| 05 | [Task 05 — i18n skeleton](tasks/task-05.md) | Typed pt-BR, en and es catalogues (missing key = type error), `navigator.language` detection with `en` fallback, scaffold window rendering only catalogue text | 04 | [Spec 05](specs/spec-05.md) | [ADR 04](ADRs/adr-04.md) | ✅ |
 
 Legend: 🔲 not started · 🔄 in progress · ✅ done · 🚫 blocked (reason in Risks and Open Decisions) · 🗑️ dropped
 

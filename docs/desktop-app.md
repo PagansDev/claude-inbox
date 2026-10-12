@@ -39,3 +39,18 @@ On Linux, the system needs `libwebkit2gtk-4.1-dev`, `libsoup-3.0-dev`, `libjavas
 - Colours and fonts are Tailwind theme tokens in `src/index.css` (`canvas`, `surface`, `ink`, `muted`, `accent`). Components use the tokens, not raw colours.
 - Icons come from `lucide-react`, never emoji. Decorative icons carry `aria-hidden="true"`.
 - No external fonts: the CSP allows only bundled assets. The font stacks fall back to the system fonts.
+
+## Translations (i18n)
+
+- Catalogues live in `src/i18n/`. `en.ts` is the source, and its keys define the `Messages` type. `pt-BR.ts` and `es.ts` are declared as `Messages`, so a missing key or an extra key fails `npm run typecheck`. No runtime check exists or is needed.
+- To add a string, add it to `en.ts` first, then to every other catalogue. `tsc` lists the catalogues that still lack it.
+- To add a locale, create the catalogue typed as `Messages` and add it to `catalogues` in `src/i18n/locale.ts`.
+- The locale is resolved once at start-up from `navigator.languages`:
+  1. the first preferred tag that matches a locale exactly, ignoring case;
+  2. otherwise one that shares its base language (`pt-PT` → `pt-BR`, `es-MX` → `es`);
+  3. otherwise `en`.
+
+  `<html lang>` is set to the result.
+- Components read text through `useMessages()`, which only works inside `I18nProvider`.
+- `appName` is the product name and is the same in every language. It is still in the catalogues, so no on-screen string is hard-coded.
+- Plurals and interpolation are not implemented yet. The first string that needs a count uses `Intl.PluralRules` (ADR 04).
