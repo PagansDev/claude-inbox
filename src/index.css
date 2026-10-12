@@ -10,6 +10,10 @@
   --font-mono: ui-monospace, "JetBrains Mono", "Cascadia Code", monospace;
 }
 
+html {
+  color-scheme: dark;
+}
+
 html,
 body,
 #root {

@@ -10,12 +10,12 @@ document.documentElement.lang = locale;
 
 const root = document.getElementById("root");
 
-if (root) {
-  createRoot(root).render(
-    <StrictMode>
-      <I18nProvider locale={locale}>
-        <App />
-      </I18nProvider>
-    </StrictMode>,
-  );
-}
+if (!root) throw new Error("Root element #root not found");
+
+createRoot(root).render(
+  <StrictMode>
+    <I18nProvider locale={locale}>
+      <App />
+    </I18nProvider>
+  </StrictMode>,
+);

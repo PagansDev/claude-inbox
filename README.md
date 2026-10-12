@@ -40,6 +40,11 @@ Linux first. The code avoids platform-specific APIs so macOS and Windows can fol
 
 [Tauri v2](https://v2.tauri.app/) with a Rust backend that hosts the local hook server, and a TypeScript frontend.
 
+## Development
+
+- Setup, running and building the desktop app: [`docs/desktop-app.md`](docs/desktop-app.md)
+- Commands, git hooks and the no-comments check: [`docs/tooling.md`](docs/tooling.md)
+
 ## Contributing
 
 - Code, commits and documentation are written in English. The interface is translated.

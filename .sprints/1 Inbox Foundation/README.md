@@ -32,6 +32,7 @@ Lay the architectural and tooling foundation of claude-inbox and prove, in a rea
 | 03 | [Task 03 — Hook viability spike](tasks/task-03.md) | Minimal Node 24 TypeScript server and `PreToolUse` hook on `AskUserQuestion` that answers automatically; manual procedure, report across six cases, captured payloads as contract fixtures | 02 | [Spec 03](specs/spec-03.md) | [ADR 02](ADRs/adr-02.md), [ADR 05](ADRs/adr-05.md) | ✅ |
 | 04 | [Task 04 — Tauri scaffold](tasks/task-04.md) | Tauri v2 app (Rust backend, React + Vite + Tailwind + lucide-react frontend) building on Linux, with the ADR 04 folder layout; rustfmt, clippy and a Rust no-comments check in the git hooks | 02 | [Spec 04](specs/spec-04.md) | [ADR 01](ADRs/adr-01.md), [ADR 04](ADRs/adr-04.md), [ADR 05](ADRs/adr-05.md) | ✅ |
 | 05 | [Task 05 — i18n skeleton](tasks/task-05.md) | Typed pt-BR, en and es catalogues (missing key = type error), `navigator.language` detection with `en` fallback, scaffold window rendering only catalogue text | 04 | [Spec 05](specs/spec-05.md) | [ADR 04](ADRs/adr-04.md) | ✅ |
+| 06 | [Task 06 — Review fixes](tasks/task-06.md) | Fix R3, R4, R6 and the two interface findings chosen by the maintainer | 05 | [Spec 06](specs/spec-06.md) | [ADR 04](ADRs/adr-04.md), [ADR 05](ADRs/adr-05.md) | ✅ |
 
 Legend: 🔲 not started · 🔄 in progress · ✅ done · 🚫 blocked (reason in Risks and Open Decisions) · 🗑️ dropped
 
@@ -42,6 +43,7 @@ Legend: 🔲 not started · 🔄 in progress · ✅ done · 🚫 blocked (reason
 | When (active task) | Change | Reason |
 |--------------------|--------|--------|
 | Task 03 | Spike cases went from six to eight (C6 wrong token, C7 timeout) | Needed to verify ADR 03's token header and ADR 02's stale-item assumption |
+| After Task 05 | Added Task 06 — Review fixes | Code review findings R3, R4, R6 and the two interface findings; the maintainer chose "fix now" ([REVIEW.md](REVIEW.md)) |
 
 ---
 
@@ -80,10 +82,10 @@ Legend: 🔲 not started · 🔄 in progress · ✅ done · 🚫 blocked (reason
 - [x] Requirement deepened and PRD approved by the human
 - [x] Minimum ADRs created and approved
 - [x] Roadmap approved by the human and recorded in the issue (Phase 4) — 2026-10-10
-- [ ] Every roadmap row ✅ or 🗑️ (each task: activation → spec → RED → GREEN → refactor → Record)
-- [ ] Tests, lint, typecheck and build passing on the final tree
-- [ ] Critical code review done (REVIEW.md)
-- [ ] Security scan done and findings decided by the human (security-scan.md)
+- [x] Every roadmap row ✅ or 🗑️ (each task: activation → spec → RED → GREEN → refactor → Record)
+- [x] Tests, lint, typecheck and build passing on the final tree
+- [x] Critical code review done ([REVIEW.md](REVIEW.md))
+- [x] Security scan done and findings decided by the human ([security-scan.md](security-scan.md))
 - [ ] Sprint delivered with summary and residual risks
 - [ ] Merged into main (human)
 - [ ] Issue closed and board item moved to done
