@@ -80,7 +80,11 @@ No critical, high or medium findings.
 
 **Audit tools (2026-10-12)**
 - `npm audit` (all dependencies, then `--omit=dev`): **0 vulnerabilities**.
-- `cargo audit`: **not run**, because the tool is not installed (`cargo install cargo-audit` is needed). It is listed as a gap for the maintainer to decide.
+- `cargo audit` 0.22.2, installed at the maintainer's request: **0 vulnerabilities** in 407 crates (RustSec database, 1307 advisories). It raised 2 warnings, both on transitive dependencies of Tauri's Linux GTK stack:
+  - `proc-macro-error` 1.0.4: unmaintained (RUSTSEC-2024-0370). It is build-time only, a proc-macro.
+  - `glib` 0.18.5: unsound `VariantStrIter` iterator impls (RUSTSEC-2024-0429). This project never calls `glib` directly, so the path is unreachable from our code, and only an upstream Tauri/gtk-rs update can move it.
+
+  Both are recorded and need no action. They should be re-checked when Tauri updates its GTK dependencies.
 
 **Web search (2026-10-12)**
 
@@ -109,4 +113,4 @@ Sources:
 - The only install script is in `@ast-grep/lang-rust`. It is denied in `allowScripts`, because the package ships prebuilt binaries.
 
 ## Conclusion
-All ten sections were swept. The product has no network-facing surface yet beyond a throwaway, token-guarded loopback spike. The webview is locked down: strict CSP and minimal capabilities. No dependency advisory reaches this project's code paths. Three low findings were listed, all tied to the spike. The maintainer accepted S1 and had S2 and S3 resolved by deleting the payload log and the test directory. One gap remains: `cargo audit` was not run because it is not installed.
+All ten sections were swept. The product has no network-facing surface yet beyond a throwaway, token-guarded loopback spike. The webview is locked down: strict CSP and minimal capabilities. No dependency advisory reaches this project's code paths. Three low findings were listed, all tied to the spike. The maintainer accepted S1 and had S2 and S3 resolved by deleting the payload log and the test directory.

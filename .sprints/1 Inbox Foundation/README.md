@@ -86,7 +86,7 @@ Legend: 🔲 not started · 🔄 in progress · ✅ done · 🚫 blocked (reason
 - [x] Tests, lint, typecheck and build passing on the final tree
 - [x] Critical code review done ([REVIEW.md](REVIEW.md))
 - [x] Security scan done and findings decided by the human ([security-scan.md](security-scan.md))
-- [ ] Sprint delivered with summary and residual risks
+- [x] Sprint delivered with summary and residual risks — delivery comment posted on #1 (2026-10-12)
 - [ ] Merged into main (human)
 - [ ] Issue closed and board item moved to done
 
